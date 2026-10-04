@@ -34,7 +34,7 @@
         #sensor-binding-cells = <0>;
         bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
 
-        tap-ms = <48>;
+        tap-ms = <64>;
     };
 
     // 左右滚动编码器行为
