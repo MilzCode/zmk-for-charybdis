@@ -9,7 +9,6 @@
 #include <dt-bindings/zmk/rgb.h>
 
 
-// &msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
 
 
 &lt {
@@ -20,16 +19,12 @@
 
 
 &msc {
-    acceleration-exponent = <1>;      // 0
+    acceleration-exponent = <0>;      // 0
     time-to-max-speed-ms = <30>;       // 300
     delay-ms = <0>;                   // 0
 };
 
-&mmv {
-    time-to-max-speed-ms = <500>;
-    acceleration-exponent = <1>;
-    trigger-period-ms = <16>;
-};
+
 
 / {
     // 上下滚动编码器行为
