@@ -79,6 +79,13 @@
             #binding-cells = <0>;
             bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(250,100,50) &to 2>;
         };
+
+        clean_caret: clean_caret {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CARET &kp SPACE>;
+            label = "CLEAN_CARET";
+        };
     };
 
     keymap {
@@ -116,12 +123,12 @@
 
         layer_2 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &none     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &none     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&trans    &kp RA(N1)  &kp LS(RA(SEMI))  &clean_caret  &trans     &trans        &trans  &trans     &trans        &trans     &trans                &trans
+&kp STAR  &kp AT      &kp COLON         &kp AMPS      &kp PIPE   &kp DOLLAR    &trans  &kp HOME   &kp UP_ARROW  &kp END    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
+&trans    &kp GRAVE   &kp SQT           &kp DQT       &kp EQUAL  &kp BSLH      &trans  &kp LEFT   &kp DOWN      &kp RIGHT  &kp LBKT              &kp RBKT
+&trans    &kp LT      &kp GT            &kp RA(N1)    &kp EXCL   &kp SLASH     &trans  &kp UNDER  &kp MINUS     &trans     &kp LBRC              &kp RBRC
+                                        &trans        &trans     &trans        &trans  &trans
+                                                      &trans     &trans        &trans
             >;
         };
 
