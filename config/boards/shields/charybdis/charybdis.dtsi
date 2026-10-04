@@ -113,7 +113,7 @@
         compatible = "alps,ec11";
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <48>;
+        steps = <24>;
         status = "disabled";
 	
     };
@@ -122,7 +122,7 @@
         compatible = "alps,ec11";
      	a-gpios = <&gpio1 02 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 07 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <48>;
+        steps = <24>;
         status = "disabled";
 		
     };*/
@@ -131,7 +131,7 @@
         compatible = "zmk,keymap-sensors";
 		sensors = <&left_encoder_1>;
         //sensors = <&left_encoder_1 &left_encoder_2>;
-		triggers-per-rotation = <24>;
+		triggers-per-rotation = <12>;
     };
 };
 &physical_layout_0{
