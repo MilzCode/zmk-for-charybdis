@@ -44,7 +44,7 @@
         #sensor-binding-cells = <0>;
         bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
 
-        tap-ms = <100>;
+        tap-ms = <64>;
     };
 
     behaviors {
@@ -100,11 +100,11 @@
                                               &mkp MB1   &mkp MB2    &kp ENTER
             >;
 
-            sensor-bindings = <&scroll_vertical_encoder>;
+            sensor-bindings = <&scroll_vertical_encoder>,
                  //<&inc_dec_kp A B>;
                 //<&scroll_vertical_encoder>,
                 // 编码器1：上下滚动,,
-               // <&scroll_horizontal_encoder>;
+               <&scroll_horizontal_encoder>;
 
             // 编码器2：左右滚动
         };
