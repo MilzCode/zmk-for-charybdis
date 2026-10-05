@@ -104,8 +104,8 @@
 &kp TAB         &kp Q   &kp W   &kp E         &kp R     &kp T        &kp Y      &kp U      &kp I      &kp O    &kp P      &kp SQT
 &kp LEFT_SHIFT  &kp A   &kp S   &kp D         &kp F     &kp G        &kp H      &kp J      &kp K      &kp L    &kp RA(N)  &kp SEMI
 &kp LCTRL       &kp Z   &kp X   &kp C         &kp V     &kp B        &kp N      &kp M      &kp COMMA  &kp DOT  &kp MINUS  &kp SLASH
-                                &kp LEFT_ALT  &kp LGUI  &mkp LCLK    &mo 2      &kp SPACE
-                                              &mo 1     &mkp RCLK    &kp ENTER
+                                &kp LEFT_ALT  &kp LGUI  &mkp LCLK    &kp ENTER  &kp SPACE
+                                              &mo 1     &mkp RCLK    &mo 2
             >;
 
             sensor-bindings = <&scroll_vertical_encoder>;
