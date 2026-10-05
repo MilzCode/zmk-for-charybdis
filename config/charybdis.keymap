@@ -1,15 +1,12 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 25
+
 #include <dt-bindings/zmk/mouse.h>
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
-
-
-
 
 &lt {
     tapping-term-ms = <200>;
@@ -17,14 +14,11 @@
     quick-tap-ms = <150>;
 };
 
-
 &msc {
     acceleration-exponent = <0>;      // 0
     time-to-max-speed-ms = <30>;       // 300
     delay-ms = <0>;                   // 0
 };
-
-
 
 / {
     // 上下滚动编码器行为
@@ -44,7 +38,7 @@
         #sensor-binding-cells = <0>;
         bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
 
-        tap-ms = <64>;
+        tap-ms = <100>;
     };
 
     behaviors {
@@ -85,6 +79,20 @@
             #binding-cells = <0>;
             bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(250,100,50) &to 2>;
         };
+
+        clean_caret: clean_caret {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CARET &kp SPACE>;
+            label = "CLEAN_CARET";
+        };
+
+        test: test {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none>;
+            label = "TEST";
+        };
     };
 
     keymap {
@@ -92,140 +100,42 @@
 
         layer_0 {
             bindings = <
-&kp ESC         &kp N1  &kp N2  &kp N3        &kp N4     &kp N5      &kp N6     &kp N7     &kp N8     &kp N9            &kp N0    &kp BACKSPACE
-&kp TAB         &kp Q   &kp W   &kp E         &kp R      &kp T       &kp Y      &kp U      &kp I      &kp O             &kp P     &kp BSLH
-&kp LEFT_SHIFT  &kp A   &kp S   &kp D         &kp F      &kp G       &kp H      &kp J      &kp K      &kp L             &kp SEMI  &kp SQT
-&kp LCTRL       &kp Z   &kp X   &kp C         &kp V      &kp B       &kp N      &kp M      &kp COMMA  &kp LEFT_BRACKET  &kp FSLH  &kp MINUS
-                                &kp LEFT_ALT  &kp SPACE  &to 1       &kp LWIN   &kp SPACE
-                                              &mkp MB1   &mkp MB2    &kp ENTER
+&kp ESC         &kp N1  &kp N2  &kp N3        &kp N4  &kp N5       &kp N6     &kp N7     &kp N8     &kp N9   &kp N0     &kp BACKSPACE
+&kp TAB         &kp Q   &kp W   &kp E         &kp R   &kp T        &kp Y      &kp U      &kp I      &kp O    &kp P      &kp SQT
+&kp LEFT_SHIFT  &kp A   &kp S   &kp D         &kp F   &kp G        &kp H      &kp J      &kp K      &kp L    &kp RA(N)  &kp SEMI
+&kp LCTRL       &kp Z   &kp X   &kp C         &kp V   &kp B        &kp N      &kp M      &kp COMMA  &kp DOT  &kp MINUS  &kp SLASH
+                                &kp LEFT_ALT  &mo 2   &mkp LCLK    &kp ENTER  &kp SPACE
+                                              &mo 1   &mkp RCLK    &kp LGUI
             >;
 
-            sensor-bindings = <&scroll_vertical_encoder>,
-                 //<&inc_dec_kp A B>;
-                //<&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,
-               <&scroll_horizontal_encoder>;
+            sensor-bindings = <&scroll_vertical_encoder>;
 
+            //<&inc_dec_kp A B>;
+            //<&scroll_vertical_encoder>,
+            // 编码器1：上下滚动,,
+            // <&scroll_horizontal_encoder>;
             // 编码器2：左右滚动
         };
 
         layer_1 {
             bindings = <
-&kp F1          &kp F2           &kp F3           &kp F4           &kp F5           &kp F6        &kp F7     &kp F8    &kp F9      &kp F10            &kp F11  &kp F12
-&kp CAPS        &none            &none            &none            &none            &none         &none      &none     &kp UP      &none              &none    &none
-&kp LEFT_SHIFT  &none            &none            &none            &bt BT_NXT       &bt BT_CLR    &none      &kp LEFT  &kp DOWN    &kp RIGHT          &none    &none
-&kp LCTRL       &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &rgb_ug RGB_EFF  &rgb_ug RGB_TOG  &none         &none      &none     &kp PERIOD  &kp RIGHT_BRACKET  &none    &kp EQUAL
-                                                  &kp LEFT_ALT     &kp SPACE        &to 0         &none      &none
-                                                                   &mkp MB1         &mkp MB2      &kp ENTER
+&kp F12  &kp F1  &kp F2  &kp F3  &kp F4  &kp F5        &kp F6             &kp F7     &kp F8     &kp F9     &kp F10       &kp F11
+&trans   &trans  &trans  &trans  &trans  &kp KP_NUM    &kp KP_MULTIPLY    &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_PLUS   &kp PG_UP
+&trans   &trans  &trans  &trans  &trans  &trans        &kp KP_DIVIDE      &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_MINUS  &kp PAGE_DOWN
+&trans   &trans  &trans  &trans  &trans  &trans        &kp CARET          &kp KP_N1  &kp KP_N2  &kp KP_N3  &none         &kp RA(SLASH)
+                         &trans  &trans  &trans        &kp C_VOL_UP       &kp KP_N0
+                                 &trans  &trans        &kp C_VOLUME_DOWN
             >;
-sensor-bindings = <&scroll_vertical_encoder>,
-                 //<&inc_dec_kp A B>;
-                //<&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,
-               <&scroll_horizontal_encoder>;
         };
 
         layer_2 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &none     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &none     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-sensor-bindings = <&scroll_vertical_encoder>,
-                 //<&inc_dec_kp A B>;
-                //<&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,
-               <&scroll_horizontal_encoder>;
-        };
-
-        layer_3 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_4 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_5 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_6 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_7 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_8 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_9 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        layer_10 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&trans    &kp RA(N1)  &kp LS(RA(SEMI))  &clean_caret  &trans     &trans        &trans  &trans     &trans        &trans     &trans                &kp DEL
+&kp STAR  &kp AT      &kp COLON         &kp AMPS      &kp PIPE   &kp DOLLAR    &trans  &kp HOME   &kp UP_ARROW  &kp END    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
+&trans    &kp GRAVE   &kp SQT           &kp DQT       &kp EQUAL  &kp BSLH      &trans  &kp LEFT   &kp DOWN      &kp RIGHT  &kp LBKT              &kp RBKT
+&trans    &kp LT      &kp GT            &kp RA(N1)    &kp EXCL   &kp SLASH     &trans  &kp UNDER  &kp MINUS     &trans     &kp LBRC              &kp RBRC
+                                        &trans        &trans     &trans        &trans  &trans
+                                                      &trans     &trans        &trans
             >;
         };
 
